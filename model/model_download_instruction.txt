@@ -1,0 +1,9 @@
+You can download the Mistral-7B model here (pay attention to the RAM required): 
+https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF
+
+Otherwise, donwload your prefered LLM (check out if is compatible with Llama) here: 
+https://huggingface.co/TheBloke
+
+After downloaded the LLM, put in this folder (model).
+
+DONE!

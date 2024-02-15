@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Botor</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/fav.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="../static/patient-list.js"></script>
+    <script src="../static/view-mode.js"></script>
+</head>
+<body class="dark-mode" onload="checkTheme();">
+    <header class="header">
+        <ul>
+            <div class="left-side-navigation-bar">
+                <li><a id="chat-button" class="active" href="">Chat</a></li>
+                <li id="patients-tab"><a>Patients</a></li>
+            </div>
+            <div class="right-side-navigation-bar">
+                <li><a id="mode" href="#home" onclick="toggleMode()">
+                    <span id="dark-mode" class="material-symbols-outlined" style="display: none;">
+                        dark_mode
+                    </span>
+                    <span id="light-mode" class="material-symbols-outlined">
+                        light_mode
+                    </span>
+                </a></li>
+            </div>
+          </ul>
+    </header>
+    <div class="title">Botor</div>
+    <div id="chatbot" class="chatbot dark-mode">
+        <div class="chat-box" id="chatBox">
+            <div class="answer-side">
+                <span class="answer-text">Hi! My name is Botor and i will answer to all your question.</span>
+            </div>
+        </div>
+        <div class="input-container">
+            <input class="chat-input dark-mode" type="text" id="userInput" name="userInput" value="ciao" placeholder="Insert here your question" onkeypress="handleKeyPress(event)" autocomplete="off" autofocus>
+            <button class="button" id="button-send" onclick="sendMessage()">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </button>
+        </div>
+    </div>
+    <div id="patients-modal" class="modal">
+        <div class="modal-content">
+            <div class="upper-section">
+                <div class="empyt-container"></div>
+                <h2 class="title-list-patient">Patients list</h2>
+                <span class="close">&times;</span>
+            </div>
+            <ul id="patient-list"></ul>
+        </div>
+      </div>
+    <!-- JavaScript Section -->
+    <script>
+        var userInput = document.getElementById("userInput");
+        userInput.value = "";
+
+        function testJSON(text) {
+            if (typeof text !== "string") {
+                return false;
+            }
+            try {
+                JSON.parse(text);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function handleKeyPress(event) {
+            // Verifica se il tasto premuto è "Invio" (codice 13)
+            if (event.keyCode === 13) {
+                // Impedisce il comportamento predefinito (ad es. il submit del modulo)
+                event.preventDefault();
+                // Chiama la funzione sendMessage()
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            if(document.getElementById('userInput').value != "") {
+                generateResponse();
+            }
+        }
+
+        function makeid(length) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+            while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+            }
+            return result;
+        }
+
+            
+        function generateResponse() {
+            var button = document.getElementById('button-send');
+            button.disabled = true;
+
+            var input = document.getElementById('userInput').value;
+            document.getElementById('userInput').value = "";
+
+            var chatBox = document.getElementById("chatBox");
+            var userMessage = document.createElement("div");
+            var userText = document.createElement("span");
+            userText.innerHTML = input;
+            userMessage.className = "question-side";
+            userText.className = "question-text";
+            userMessage.appendChild(userText);
+            chatBox.appendChild(userMessage);
+            chatBox = document.getElementById("chatBox");
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+            chatBox.style.overflowY = "auto"
+
+            var botMessage = document.createElement("div");
+            var botText = document.createElement("span");
+            var loadingContainer = document.createElement("div");
+            var loading = document.createElement("div");
+            var spinner = document.createElement("div");
+
+            setTimeout(function() {
+                loadingContainer.className = "loading-container";
+                loading.className = "loading";
+                loading.innerHTML = "O";
+                spinner.className = "spinner";
+                loadingContainer.appendChild(loading);
+                loading.appendChild(spinner);
+
+                botMessage.className = "answer-side";
+                botText.className = "answer-text";
+
+                botMessage.appendChild(loadingContainer);
+                chatBox.appendChild(botMessage);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                chatBox.style.overflowY = "auto"
+            }, 500);
+
+            $.ajax({ 
+                url: '/process', 
+                type: 'POST', 
+                contentType: 'application/json', 
+                data: JSON.stringify({ 'value': input }), 
+                success: function(response) {
+                    button.disabled = false;
+                    if(response.result == "none" && response.graph != "none") {
+                        //Qui ci va il grafo
+                        var id = makeid(10)
+                        var graphArray = response.graph;
+                        var chart = document.createElement('canvas');
+                        chart.className = "answer-chart";
+                        chart.id = id;
+
+                        botMessage.removeChild(loadingContainer);
+                        botMessage.appendChild(chart);
+                        
+                        const xValues = [];
+                        const yValues = [];
+                        var minValue, maxValue;
+
+                        for (var i = 0; i < graphArray.length; i++) {
+                            var value = graphArray[i][3]; //Prendo la data
+                            let string = value.substring(0, 10);
+                            xValues.push(string);
+                        }
+
+                        for (var i = 0; i < graphArray.length; i++) {
+                            var value;
+
+                            if(graphArray[i][4] == "") {
+                                value = 0;
+                            } else {
+                                var value = graphArray[i][4];
+                            }
+                            yValues.push(value);
+                        }
+
+                        minValue = yValues[0];
+                        maxValue = yValues[0];
+                            
+                        for (var i = 0; i < yValues.length; i++) {
+                            if (yValues[i] <= minValue) {
+                                minValue = yValues[i];
+                            }
+
+                            if (yValues[i] >= maxValue) {
+                                maxValue = yValues[i];
+                            }
+                        }
+
+                        new Chart(id, {
+                            type: "line",
+                            data: {
+                                labels: xValues,
+                                datasets: [{
+                                    fill: false,
+                                    lineTension: 0,
+                                    backgroundColor: "rgba(255,255,255,1.0)",
+                                    borderColor: "rgba(255,255,255,0.1)",
+                                    data: yValues
+                                }]
+                            },
+                            options: {
+                                title: {
+                                display: true,
+                                fontColor: 'white',
+                                text: "Patient " + graphArray[0][2],
+                                },
+                                legend: {display: false},
+                                scales: {
+                                    xAxes: [{
+                                        ticks: {
+                                        fontColor: 'white',
+                                            maxRotation: 90,
+                                            minRotation: 90
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        ticks: {
+                                            min: minValue,
+                                            max: maxValue,
+                                            fontColor: 'white'
+                                        }
+                                    }],
+                                }
+                            }
+                            });
+                    } else if (response.result != "none" && response.graph == "none") {
+                        //Risposta testuale
+                        botText.innerHTML = response.result;
+                        botMessage.removeChild(loadingContainer);
+                        botMessage.appendChild(botText);
+                    }
+
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    chatBox.style.overflowY = "auto"
+                }, 
+                error: function(error) {
+                    console.log(error); 
+                } 
+            }); 
+        }
+     </script>
+</body>
+</html>
