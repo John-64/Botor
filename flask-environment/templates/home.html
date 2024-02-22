@@ -17,7 +17,6 @@
         <ul>
             <div class="left-side-navigation-bar">
                 <li><a id="chat-button" class="active" href="">Chat</a></li>
-                <li id="patients-tab"><a>Patients</a></li>
             </div>
             <div class="right-side-navigation-bar">
                 <li><a id="mode" href="#home" onclick="toggleMode()">
@@ -45,6 +44,13 @@
                     search
                 </span>
             </button>
+        </div>        
+        <div class="upload-container">
+            <label for="file-upload" class="file-upload-button" id="file-upload-label">Upload File</label>
+            <input type="file" id="file-upload" class="file-upload-input">
+            <span id="file-icon-upload" class="material-symbols-outlined">description</span>
+            <span id="file-icon" class="pdf-icon"></span>
+            <span id="remove-file" style="display: none; cursor: pointer;">&#10006;</span>
         </div>
     </div>
     <div id="patients-modal" class="modal">
@@ -153,103 +159,82 @@
                 data: JSON.stringify({ 'value': input }), 
                 success: function(response) {
                     button.disabled = false;
-                    if(response.result == "none" && response.graph != "none") {
-                        //Qui ci va il grafo
-                        var id = makeid(10)
-                        var graphArray = response.graph;
-                        var chart = document.createElement('canvas');
-                        chart.className = "answer-chart";
-                        chart.id = id;
-
-                        botMessage.removeChild(loadingContainer);
-                        botMessage.appendChild(chart);
-                        
-                        const xValues = [];
-                        const yValues = [];
-                        var minValue, maxValue;
-
-                        for (var i = 0; i < graphArray.length; i++) {
-                            var value = graphArray[i][3]; //Prendo la data
-                            let string = value.substring(0, 10);
-                            xValues.push(string);
-                        }
-
-                        for (var i = 0; i < graphArray.length; i++) {
-                            var value;
-
-                            if(graphArray[i][4] == "") {
-                                value = 0;
-                            } else {
-                                var value = graphArray[i][4];
-                            }
-                            yValues.push(value);
-                        }
-
-                        minValue = yValues[0];
-                        maxValue = yValues[0];
-                            
-                        for (var i = 0; i < yValues.length; i++) {
-                            if (yValues[i] <= minValue) {
-                                minValue = yValues[i];
-                            }
-
-                            if (yValues[i] >= maxValue) {
-                                maxValue = yValues[i];
-                            }
-                        }
-
-                        new Chart(id, {
-                            type: "line",
-                            data: {
-                                labels: xValues,
-                                datasets: [{
-                                    fill: false,
-                                    lineTension: 0,
-                                    backgroundColor: "rgba(255,255,255,1.0)",
-                                    borderColor: "rgba(255,255,255,0.1)",
-                                    data: yValues
-                                }]
-                            },
-                            options: {
-                                title: {
-                                display: true,
-                                fontColor: 'white',
-                                text: "Patient " + graphArray[0][2],
-                                },
-                                legend: {display: false},
-                                scales: {
-                                    xAxes: [{
-                                        ticks: {
-                                        fontColor: 'white',
-                                            maxRotation: 90,
-                                            minRotation: 90
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        ticks: {
-                                            min: minValue,
-                                            max: maxValue,
-                                            fontColor: 'white'
-                                        }
-                                    }],
-                                }
-                            }
-                            });
-                    } else if (response.result != "none" && response.graph == "none") {
-                        //Risposta testuale
-                        botText.innerHTML = response.result;
-                        botMessage.removeChild(loadingContainer);
-                        botMessage.appendChild(botText);
-                    }
-
+                    botText.innerHTML = response.result; // Utilizza response.result anziché response
+                    botMessage.removeChild(loadingContainer);
+                    botMessage.appendChild(botText);
                     chatBox.scrollTop = chatBox.scrollHeight;
-                    chatBox.style.overflowY = "auto"
+                    chatBox.style.overflowY = "auto";
                 }, 
                 error: function(error) {
                     console.log(error); 
                 } 
-            }); 
+            });
+
         }
+
+        // Funzione per gestire l'invio del file
+        function uploadFile() {
+            var formData = new FormData();
+            var file = $('#file-upload')[0].files[0];
+            formData.append('file', file);
+
+            $.ajax({
+                url: '/upload', // L'URL al quale inviare la richiesta POST
+                type: 'POST',
+                data: formData,
+                processData: false, // Non elaborare i dati
+                contentType: false, // Non impostare l'intestazione Content-Type
+                success: function(response) {
+                    console.log(response); // Gestisci la risposta dal server
+                    $('#file-icon').text(file.name); // Mostra il nome del file caricato
+                    $('.upload-container').css('border', '2px solid #4CAF50');
+                    $('#file-icon').show(); // Mostra l'icona del nome del file
+                    $('#remove-file').show(); // Mostra l'icona di rimozione del file
+                    $('#file-icon-upload').show(); // Mostra l'icona di rimozione del file
+                    $('#file-upload-label').hide(); // Nascondi il pulsante di caricamento
+                },
+                error: function(error) {
+                    console.error(error); // Gestisci eventuali errori
+                }
+            });
+        }
+
+        // Aggiungi un ascoltatore di eventi per l'input file
+        $('#file-upload').on('change', function() {
+            uploadFile();
+        });
+
+        // Aggiungi un ascoltatore di eventi per l'icona di rimozione del file
+        $('#remove-file').on('click', function() {
+            $('#file-upload').val(''); // Rimuovi il file selezionato
+            $('#file-icon').hide(); // Nascondi l'icona del tipo di file
+            $('#remove-file').hide(); // Nascondi l'icona di rimozione del file
+            $('#file-icon-upload').hide();
+            $('.upload-container').css('border', 'none');
+            $('#file-upload-label').show(); // Mostra il pulsante di caricamento
+        });
+
+        // Funzione per eliminare i file
+        function deleteFiles() {
+            $.ajax({
+                url: '/delete-files', // L'URL al quale inviare la richiesta POST per eliminare i file
+                type: 'POST',
+                success: function(response) {
+                    console.log(response); // Gestisci la risposta dal server
+                    $('#file-icon').hide(); // Nascondi l'icona del nome del file
+                    $('#remove-file').hide(); // Nascondi l'icona di rimozione del file
+                    $('#file-upload-label').show(); // Mostra il pulsante di caricamento
+                },
+                error: function(error) {
+                    console.error(error); // Gestisci eventuali errori
+                }
+            });
+        }
+
+        // Aggiungi un ascoltatore di eventi per l'icona di rimozione del file
+        $('#remove-file').on('click', function() {
+            deleteFiles(); // Chiamare la funzione deleteFiles quando si fa clic sulla X
+        });
      </script>
 </body>
 </html>

@@ -360,3 +360,56 @@ li a:hover:not(.active) {
     text-decoration: none;
     cursor: pointer;
 }
+
+.upload-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+.file-upload-button {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload-button:hover {
+    background-color: #62b165;
+}
+
+.file-upload-input {
+    display: none;
+}
+
+#file-icon {
+    color: #ffffff;
+    display: none; /* Nascondi l'icona del tipo di file per impostazione predefinita */
+    margin-right: 5px; /* Aggiungi spazio tra l'icona del tipo di file e l'icona di rimozione del file */
+}
+
+#remove-file {
+    display: none; /* Nascondi l'icona di rimozione del file per impostazione predefinita */
+    font-size: 1.5rem;
+    color: #4CAF50;
+    margin-left: 1.5rem; /* Aggiungi spazio tra l'icona di rimozione del file e l'icona del tipo di file */
+}
+
+#remove-file:hover {
+    color: #ffffff; /* Cambia il colore dell'icona di rimozione del file quando ci si passa sopra con il mouse */
+}
+
+#file-icon-upload {
+    display: none;
+    font-size: 2.5rem;
+    color: #4CAF50;;
+}
