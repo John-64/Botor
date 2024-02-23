@@ -1,11 +1,9 @@
-import flask
-from flask import request, jsonify
 from llama_index.core import SimpleDirectoryReader, TreeIndex
-import requests
-import json
+from flask import request, jsonify
 from openai import OpenAI
-from llama_cpp import Llama
+import flask
 import os
+
 
 app = flask.Flask(__name__, template_folder='./flask-environment/templates', static_folder='./flask-environment/static')
 os.environ["OPENAI_API_KEY"] = "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"
@@ -15,7 +13,6 @@ upload_path = "./data/"
 @app.route('/delete-files', methods=['POST'])
 def delete_files():
     try:
-        # Elimina tutti i file nella cartella di upload
         filelist = [f for f in os.listdir(upload_path)]
         for f in filelist:
             os.remove(os.path.join(upload_path, f))
@@ -26,7 +23,6 @@ def delete_files():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    # Removing all the files in the folder
     delete_files()
 
     if 'file' not in request.files:
@@ -37,7 +33,6 @@ def upload_file():
     if file.filename == '':
         return jsonify({'error': 'Nessun file selezionato.'}), 400
 
-    # Salvare il file nel percorso desiderato
     file.save(upload_path + file.filename)
     print("Done")
 
@@ -46,12 +41,10 @@ def upload_file():
 
 @app.route('/process', methods=['POST']) 
 def process():  
-    # Taking the question from the user
     data = flask.request.get_json()
     question = data['value']
 
     try:
-        # Controlla se ci sono file nella cartella di upload
         files = os.listdir(upload_path)
         if files:
             documents = SimpleDirectoryReader("data").load_data(files[0])
@@ -62,33 +55,46 @@ def process():
 
             return jsonify({'result': str(response)}), 200
         else:
-            # client = OpenAI(api_key = os.environ["OPENAI_API_KEY"])
             client = OpenAI()
-            # Prompt for OpenAI
+            
             messages = [
-                {"role": "system", "content": "As a compassionate and dedicated healthcare professional, your priority is to provide accurate and helpful information while upholding ethical standards. If a question is unclear or factually incorrect, try to provide a response while maintaining the chatbot style. If unsure of an answer, refrain from sharing false information. Respond to this question:"
+                {
+                "role": "system",
+                "content": "Answer the question that the user provides you and respond in a technical and precise manner to the medical sector"
                 },
-                {"role": "user", "content": question},
-                {"role": "system", "content":"Generates an answer relevant to the question only if related to the medical sector. If the question is not phrased correctly, try to interpret it better and answer it anyway by trying to find medical words in the question. If you are sure that the question is not related to the medical sector, return the following answer: 'Sorry, but I am a medical chatbot, please ask me questions related to this field.'... Just if you are sure"
+                {
+                "role": "user",
+                "content": question
                 }
             ]
 
-            # Get the answer
-            response = client.chat.completions.create(
+            # gpt-3.5-turbo-1106 - FineTuned
+            completion = client.chat.completions.create(
+                model="ft:gpt-3.5-turbo-1106:personal::8vYWsgp1",
+                messages=messages,
+                temperature=0.2,
+                max_tokens=512,
+                top_p=1,
+                frequency_penalty=0.35,
+                presence_penalty=0.35
+            )
+
+            
+            """
+            # gpt-3.5-turbo-1106
+            completion = client.chat.completions.create(
                 model="gpt-3.5-turbo-1106",
+                # model="gpt-4",
                 messages=messages,
                 max_tokens=100,
                 temperature=0
             )
-
-            # Extract the answer
-            query = response.choices[0].message.content
-
-            return jsonify({'result': str(query)}), 200
+            """
+            
+            return jsonify({'result': str(completion.choices[0].message.content)}), 200
 
     except Exception as e:
         print(f"Errore: {str(e)}")
-        print("ops")
         return None
 
     

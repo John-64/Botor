@@ -102,7 +102,6 @@ function generateResponse() {
             console.log(error); 
         } 
     });
-
 }
 
 // Funzione per gestire l'invio del file
