@@ -19,6 +19,8 @@ function toggleMode() {
         document.getElementById('chatbot').classList.remove('light-mode');
         document.getElementById('userInput').classList.add('dark-mode');
         document.getElementById('userInput').classList.remove('light-mode');
+        document.getElementById('modal-id').classList.add('dark-mode');
+        document.getElementById('modal-id').classList.remove('light-mode');
     } else if (body.classList == "light-mode") {
         document.getElementById('dark-mode').style.display = 'block';
         document.getElementById('light-mode').style.display = 'none';
@@ -27,5 +29,7 @@ function toggleMode() {
         document.getElementById('chatbot').classList.add('light-mode');
         document.getElementById('userInput').classList.remove('dark-mode');
         document.getElementById('userInput').classList.add('light-mode');
+        document.getElementById('modal-id').classList.remove('dark-mode');
+        document.getElementById('modal-id').classList.add('light-mode');
     }
 }

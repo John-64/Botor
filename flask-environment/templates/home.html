@@ -9,15 +9,22 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <script src="../static/patient-list.js"></script>
     <script src="../static/view-mode.js"></script>
 </head>
 <body class="dark-mode" onload="checkTheme();">
     <header class="header">
         <ul>
             <div class="left-side-navigation-bar">
-                <li><a id="chat-button" class="active" href="">Chat</a></li>
+                <div class="upload-container">
+                    <label for="file-upload" class="file-upload-button" id="file-upload-label">Upload File</label>
+                    <input type="file" id="file-upload" class="file-upload-input">
+                    <span id="file-icon-upload" class="material-symbols-outlined">description</span>
+                    <span id="file-icon" class="pdf-icon"></span>
+                    <span id="remove-file" style="display: none; cursor: pointer;">&#10006;</span>
+                </div>
+                <li id="info-tab"><a>Chi sono</a></li>
             </div>
+            <div class="title">Botor</div>
             <div class="right-side-navigation-bar">
                 <li><a id="mode" href="#home" onclick="toggleMode()">
                     <span id="dark-mode" class="material-symbols-outlined" style="display: none;">
@@ -30,7 +37,6 @@
             </div>
           </ul>
     </header>
-    <div class="title">Botor</div>
     <div id="chatbot" class="chatbot dark-mode">
         <div class="chat-box" id="chatBox">
             <div class="answer-side">
@@ -45,196 +51,37 @@
                 </span>
             </button>
         </div>        
-        <div class="upload-container">
-            <label for="file-upload" class="file-upload-button" id="file-upload-label">Upload File</label>
-            <input type="file" id="file-upload" class="file-upload-input">
-            <span id="file-icon-upload" class="material-symbols-outlined">description</span>
-            <span id="file-icon" class="pdf-icon"></span>
-            <span id="remove-file" style="display: none; cursor: pointer;">&#10006;</span>
-        </div>
     </div>
-    <div id="patients-modal" class="modal">
-        <div class="modal-content">
+    <div id="info-modal" class="modal">
+        <div id="modal-id" class="modal-content dark-mode">
             <div class="upper-section">
                 <div class="empyt-container"></div>
-                <h2 class="title-list-patient">Patients list</h2>
+                <h2 class="title-list-info">Chi sono</h2>
                 <span class="close">&times;</span>
             </div>
-            <ul id="patient-list"></ul>
+            <ul id="info-list">
+                <li>
+                    Ciao!<br><br>
+                    Sono <span class="green-text">Botor</span>, il tuo assistente medico!
+                    Prova a chiedermi qualsiasi cosa inerente al <span class="green-text">settore sanitario</span> e io proverò ad aiutarti.
+                    In alto a sinistra trovi un pulsante per caricare file in formato <span class="green-text">PDF</span>, prova ad inserire
+                    un documento e fammi domande relative ad esso!
+                    <br>
+                    Ricorda, sono un assistente medico, qualsiasi domanda non inerente a questo settore non verrà risposta!
+
+                    <div class="line-green"></div>
+
+                    Hello!<br><br>
+                    I'm <span class="green-text">Botor</span>, your medical assistant!
+                    Try asking me anything related to the <span class="green-text">healthcare field</span> and I will try to help you.
+                    At the top left you will find a button to upload files in <span class="green-text">PDF</span> format, try inserting
+                    a document and ask me questions related to it!
+                    <br>
+                    Remember, I am a medical assistant, any questions not related to this field will not be answered!
+                </li>
+            </ul>
         </div>
-      </div>
-    <!-- JavaScript Section -->
-    <script>
-        var userInput = document.getElementById("userInput");
-        userInput.value = "";
-
-        function testJSON(text) {
-            if (typeof text !== "string") {
-                return false;
-            }
-            try {
-                JSON.parse(text);
-                return true;
-            } catch (error) {
-                return false;
-            }
-        }
-
-        function handleKeyPress(event) {
-            // Verifica se il tasto premuto è "Invio" (codice 13)
-            if (event.keyCode === 13) {
-                // Impedisce il comportamento predefinito (ad es. il submit del modulo)
-                event.preventDefault();
-                // Chiama la funzione sendMessage()
-                sendMessage();
-            }
-        }
-
-        function sendMessage() {
-            if(document.getElementById('userInput').value != "") {
-                generateResponse();
-            }
-        }
-
-        function makeid(length) {
-            let result = '';
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            const charactersLength = characters.length;
-            let counter = 0;
-            while (counter < length) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            counter += 1;
-            }
-            return result;
-        }
-
-            
-        function generateResponse() {
-            var button = document.getElementById('button-send');
-            button.disabled = true;
-
-            var input = document.getElementById('userInput').value;
-            document.getElementById('userInput').value = "";
-
-            var chatBox = document.getElementById("chatBox");
-            var userMessage = document.createElement("div");
-            var userText = document.createElement("span");
-            userText.innerHTML = input;
-            userMessage.className = "question-side";
-            userText.className = "question-text";
-            userMessage.appendChild(userText);
-            chatBox.appendChild(userMessage);
-            chatBox = document.getElementById("chatBox");
-
-            chatBox.scrollTop = chatBox.scrollHeight;
-            chatBox.style.overflowY = "auto"
-
-            var botMessage = document.createElement("div");
-            var botText = document.createElement("span");
-            var loadingContainer = document.createElement("div");
-            var loading = document.createElement("div");
-            var spinner = document.createElement("div");
-
-            setTimeout(function() {
-                loadingContainer.className = "loading-container";
-                loading.className = "loading";
-                loading.innerHTML = "O";
-                spinner.className = "spinner";
-                loadingContainer.appendChild(loading);
-                loading.appendChild(spinner);
-
-                botMessage.className = "answer-side";
-                botText.className = "answer-text";
-
-                botMessage.appendChild(loadingContainer);
-                chatBox.appendChild(botMessage);
-                chatBox.scrollTop = chatBox.scrollHeight;
-                chatBox.style.overflowY = "auto"
-            }, 500);
-
-            $.ajax({ 
-                url: '/process', 
-                type: 'POST', 
-                contentType: 'application/json', 
-                data: JSON.stringify({ 'value': input }), 
-                success: function(response) {
-                    button.disabled = false;
-                    botText.innerHTML = response.result; // Utilizza response.result anziché response
-                    botMessage.removeChild(loadingContainer);
-                    botMessage.appendChild(botText);
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                    chatBox.style.overflowY = "auto";
-                }, 
-                error: function(error) {
-                    console.log(error); 
-                } 
-            });
-
-        }
-
-        // Funzione per gestire l'invio del file
-        function uploadFile() {
-            var formData = new FormData();
-            var file = $('#file-upload')[0].files[0];
-            formData.append('file', file);
-
-            $.ajax({
-                url: '/upload', // L'URL al quale inviare la richiesta POST
-                type: 'POST',
-                data: formData,
-                processData: false, // Non elaborare i dati
-                contentType: false, // Non impostare l'intestazione Content-Type
-                success: function(response) {
-                    console.log(response); // Gestisci la risposta dal server
-                    $('#file-icon').text(file.name); // Mostra il nome del file caricato
-                    $('.upload-container').css('border', '2px solid #4CAF50');
-                    $('#file-icon').show(); // Mostra l'icona del nome del file
-                    $('#remove-file').show(); // Mostra l'icona di rimozione del file
-                    $('#file-icon-upload').show(); // Mostra l'icona di rimozione del file
-                    $('#file-upload-label').hide(); // Nascondi il pulsante di caricamento
-                },
-                error: function(error) {
-                    console.error(error); // Gestisci eventuali errori
-                }
-            });
-        }
-
-        // Aggiungi un ascoltatore di eventi per l'input file
-        $('#file-upload').on('change', function() {
-            uploadFile();
-        });
-
-        // Aggiungi un ascoltatore di eventi per l'icona di rimozione del file
-        $('#remove-file').on('click', function() {
-            $('#file-upload').val(''); // Rimuovi il file selezionato
-            $('#file-icon').hide(); // Nascondi l'icona del tipo di file
-            $('#remove-file').hide(); // Nascondi l'icona di rimozione del file
-            $('#file-icon-upload').hide();
-            $('.upload-container').css('border', 'none');
-            $('#file-upload-label').show(); // Mostra il pulsante di caricamento
-        });
-
-        // Funzione per eliminare i file
-        function deleteFiles() {
-            $.ajax({
-                url: '/delete-files', // L'URL al quale inviare la richiesta POST per eliminare i file
-                type: 'POST',
-                success: function(response) {
-                    console.log(response); // Gestisci la risposta dal server
-                    $('#file-icon').hide(); // Nascondi l'icona del nome del file
-                    $('#remove-file').hide(); // Nascondi l'icona di rimozione del file
-                    $('#file-upload-label').show(); // Mostra il pulsante di caricamento
-                },
-                error: function(error) {
-                    console.error(error); // Gestisci eventuali errori
-                }
-            });
-        }
-
-        // Aggiungi un ascoltatore di eventi per l'icona di rimozione del file
-        $('#remove-file').on('click', function() {
-            deleteFiles(); // Chiamare la funzione deleteFiles quando si fa clic sulla X
-        });
-     </script>
+    </div>
+    <script src="../static/script.js"></script>
 </body>
 </html>

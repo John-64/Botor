@@ -23,7 +23,7 @@ body.light-mode {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: #9fa2a6;
+    background-color: #e4e4e4;
 }
 
 .chatbot.dark-mode {
@@ -44,7 +44,7 @@ body.light-mode {
     align-items: center;
     flex-direction: column;
     border: solid #4CAF50;
-    background-color: #e4e4e4;
+    background-color: #9fa2a6;
     border-radius: 10px 10px 10px 10px;
 }
 
@@ -54,11 +54,19 @@ body.light-mode {
     font-size: 2.5rem;
     text-transform: uppercase;
     color: white;
-    padding: 10px;
-    border-radius: 10px 10px 0 0;
-    padding: 0.5rem 1.5rem 0 1.5rem;
-    margin-top: 0.2rem;
+    padding: 7px 5px 5px 5px;
+    border-radius: 20px 20px 20px 20px;
     text-align: center;
+}
+
+#mode, #info-tab {
+    border: solid 2px #4CAF50;
+    border-radius: 15px 15px 15px 15px;
+    background-color: #4caf4f75;
+}
+
+#mode:hover, #info-tab:hover {
+    background-color: #4CAF50;
 }
 
 .input-container {
@@ -97,7 +105,7 @@ body.light-mode {
     border: solid #4CAF50 2px;
     color: white;
     outline: none;
-    background-color: #9fa2a6;
+    background-color: #545454;
 }
 
 .button {
@@ -121,7 +129,7 @@ body.light-mode {
 
 .chat-box {
     width: 100%;
-    max-height: 30rem;
+    max-height: 75vh;
     overflow-y: auto;
     min-height: 5rem;
     display: flex;
@@ -221,7 +229,7 @@ body.light-mode {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-  
+
 /* Navigation Bar */
 .header {
     width: 100%;
@@ -231,7 +239,7 @@ body.light-mode {
 
 ul {
     display: grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 45% 10% 45%;
     gap: 1rem;
     list-style-type: none;
     margin: 0;
@@ -273,118 +281,45 @@ li a {
 li a:hover:not(.active) {
     cursor: pointer;
     border-radius: 15px 15px 15px 15px;
-    background-color: #335634;
+    background-color: #4CAF50;
 }
 
+/*
 .active {
     border-radius: 15px 15px 15px 15px;
-    background-color: #4CAF50;
+    text-decoration: underline #4CAF50;
 }
 
 .active:hover {
     cursor: pointer;
     border-radius: 15px 15px 15px 15px;
     background-color: #335634;
-}
-
-/* Patient list */
-/* Stile per il modal */
-.upper-section {
-    display: grid;
-    grid-template-columns: 15% 70% 15%;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    position: absolute;
-    border-radius: 20px 20px 20px 20px;
-    min-width: 30%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #2d2f32;
-    padding: 20px;
-    border: 1px solid #4CAF50;
-    max-height: 80%;
-    overflow-y: auto;
-}
-
-.modal-content::-webkit-scrollbar {
-    display: none;
-}
-  
-.modal-content {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-#patient-list {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: normal;
-}
-
-.close {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.title-list-patient {
-    text-align: center;
-    text-transform: uppercase;
-    color: #4CAF50;
-}
-
-.close:hover,
-.close:focus {
-    color: #335634;
-    text-decoration: none;
-    cursor: pointer;
-}
+}*/
 
 .upload-container {
     display: flex;
     justify-content: center;
+    border: solid 2px #4CAF50;
+    background-color: #4caf4f75;
     align-items: center;
-    margin: 1rem;
     border-radius: 10px;
-    padding: 0.5rem;
+    padding: 0.2rem 0.5rem
+}
+
+.upload-container:hover {
+    background-color: #4CAF50;
 }
 
 .file-upload-button {
-    background-color: #4CAF50;
     color: white;
     font-weight: bold;
     text-transform: uppercase;
     border: none;
     border-radius: 5px;
-    padding: 8px 12px;
+    padding: 11px 12px;
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
-
-.file-upload-button:hover {
-    background-color: #62b165;
 }
 
 .file-upload-input {
@@ -412,4 +347,97 @@ li a:hover:not(.active) {
     display: none;
     font-size: 2.5rem;
     color: #4CAF50;;
+}
+
+
+/* Patient list */
+/* Stile per il modal */
+.upper-section {
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: absolute;
+    border-radius: 20px 20px 20px 20px;
+    min-width: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid #4CAF50;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.modal-content.dark-mode {
+    background-color: #2d2f32;
+}
+
+.modal-content.light-mode {
+    background-color: #545454;
+}
+
+.modal-content::-webkit-scrollbar {
+    display: none;
+}
+  
+.modal-content {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#info-list {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.line-green {
+    width: 100%;
+    height: 2px;
+    background-color: #4CAF50;
+    margin: 1rem 0;
+}
+
+.green-text {
+    color: #4CAF50;
+}
+
+.close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.title-list-info {
+    text-align: center;
+    text-transform: uppercase;
+    color: #4CAF50;
+}
+
+.close:hover,
+.close:focus {
+    color: #335634;
+    text-decoration: none;
+    cursor: pointer;
 }
