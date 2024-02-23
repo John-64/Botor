@@ -76,7 +76,7 @@ def process():
                 max_tokens=512,
                 top_p=1,
                 frequency_penalty=0.35,
-                presence_penalty=0.35
+                presence_penalty=0.35,
             )
 
             
