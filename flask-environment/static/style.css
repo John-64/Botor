@@ -261,6 +261,7 @@ ul {
     justify-content: flex-end;
     padding: 0rem 1.5rem;
     align-items: center;
+    margin-right: 0.5rem;
 }
 
 li {
