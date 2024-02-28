@@ -21,8 +21,8 @@ This repository contains my university project for thesis.
 If everything is ok you can use the Botor app by reaching the address shown in the Port(s) section (for example http://localhost:9000).
 
 ## Demo 🎥
-<p align="center"> 
-    <img src="media/demo.png" alt="Demo" width="90%" style="border: solid 1px white">
+<p align="center" style="border: solid 1px white"> 
+    <img src="media/demo.png" alt="Demo" width="90%">
 </p>
 
 ### Curiosity 🧐
