@@ -24,6 +24,7 @@ with open("./config.json", "r") as c:
     TOP_P = config["TOP_P"]
     FREQUENCY_PENALTY = config["FREQUENCY_PENALTY"]
     PRESENCE_PENALTY = config["PRESENCE_PENALTY"]
+    PORT = config["PORT"]
 
 
 app = flask.Flask(__name__, template_folder='./flask-environment/templates', static_folder='./flask-environment/static')
@@ -174,4 +175,4 @@ def home():
     
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=9000, threaded=True, debug=True)
+    app.run(host='0.0.0.0', port=PORT, threaded=True, debug=True)

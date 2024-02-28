@@ -9,5 +9,6 @@
     "PRESENCE_PENALTY": 0.35,
     "EMBEDDING_NAME": "BAAI/bge-large-en",
     "COLLECTION_NAME": "test_db",
-    "QDRANT_URL": "http://localhost:6333"
+    "QDRANT_URL": "http://localhost:6333",
+    "PORT": 9000
 }
