@@ -22,7 +22,7 @@ If everything is ok you can use the Botor app by reaching the address shown in t
 
 ## Demo 🎥
 <p align="center"> 
-    <img src="media/demo.png" alt="Demo" width="90%">
+    <img src="media/demo.png" alt="Demo" width="90%" style="border: solid 1px white">
 </p>
 
 ### Curiosity 🧐
