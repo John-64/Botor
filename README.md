@@ -28,5 +28,5 @@ If everything is ok you can use the Botor app by reaching the address shown in t
 ### Curiosity 🧐
 The name "Botor" is the merge of "Bot" with the "Doctor".
 
-#### Credits
+#### Credits 🙏🏻
 Dataset: https://github.com/abachaa/MedQuAD
