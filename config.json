@@ -1,0 +1,13 @@
+{
+    "OPENAI_KEY": "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",
+    "LLM_MODEL_NAME_FINE_TUNED": "ft:gpt-3.5-turbo-1106:personal::8vYWsgp1",
+    "LLM_MODEL_NAME": "gpt-3.5-turbo-1106",
+    "TEMPERATURE": 0.2,
+    "MAX_TOKENS": 512,
+    "TOP_P": 1,
+    "FREQUENCY_PENALTY": 0.35,
+    "PRESENCE_PENALTY": 0.35,
+    "EMBEDDING_NAME": "BAAI/bge-large-en",
+    "COLLECTION_NAME": "test_db",
+    "QDRANT_URL": "http://localhost:6333"
+}
