@@ -21,9 +21,9 @@ This repository contains my university project for thesis.
 If everything is ok you can use the Botor app by reaching the address shown in the Port(s) section (for example http://localhost:9000).
 
 ## Demo 🎥
-<div align="center" style="border: solid red 10px;"> 
+<p align="center"> 
     <img src="media/demo.png" alt="Demo" width="90%">
-</div>
+</p>
 
 ### Curiosity 🧐
 The name "Botor" is the merge of "Bot" with the "Doctor".
