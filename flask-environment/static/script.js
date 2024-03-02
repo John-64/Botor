@@ -118,9 +118,9 @@ function uploadFile() {
         contentType: false, // Non impostare l'intestazione Content-Type
         success: function(response) {
             console.log(response); // Gestisci la risposta dal server
-            $('#file-icon').text(file.name); // Mostra il nome del file caricato
-            $('.upload-container').css('border', '2px solid #4CAF50');
-            $('#file-icon').show(); // Mostra l'icona del nome del file
+            $('#file-text').text(file.name); // Mostra il nome del file caricato
+            $('#file-text').attr("title", file.name);
+            $('#file-text').show(); // Mostra l'icona del nome del file
             $('#remove-file').show(); // Mostra l'icona di rimozione del file
             $('#file-icon-upload').show(); // Mostra l'icona di rimozione del file
             $('#file-upload-label').hide(); // Nascondi il pulsante di caricamento
@@ -139,10 +139,9 @@ $('#file-upload').on('change', function() {
 // Aggiungi un ascoltatore di eventi per l'icona di rimozione del file
 $('#remove-file').on('click', function() {
     $('#file-upload').val(''); // Rimuovi il file selezionato
-    $('#file-icon').hide(); // Nascondi l'icona del tipo di file
+    $('#file-text').hide(); // Nascondi l'icona del tipo di file
     $('#remove-file').hide(); // Nascondi l'icona di rimozione del file
     $('#file-icon-upload').hide();
-    $('.upload-container').css('border', 'none');
     $('#file-upload-label').show(); // Mostra il pulsante di caricamento
 });
 
@@ -153,7 +152,7 @@ function deleteFiles() {
         type: 'POST',
         success: function(response) {
             console.log(response); // Gestisci la risposta dal server
-            $('#file-icon').hide(); // Nascondi l'icona del nome del file
+            $('#file-text').hide(); // Nascondi l'icona del nome del file
             $('#remove-file').hide(); // Nascondi l'icona di rimozione del file
             $('#file-upload-label').show(); // Mostra il pulsante di caricamento
         },
