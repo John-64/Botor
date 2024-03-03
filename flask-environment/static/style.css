@@ -449,3 +449,81 @@ body.light-mode {
     text-decoration: none;
     cursor: pointer;
 }
+
+#menu-patient {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+}
+
+#menu-patient.dark-mode {
+    color: white;
+    background-color: #ffffff19;
+}
+
+#menu-patient.dark-mode:hover {
+    cursor: pointer;
+    background-color: #ffffff51;
+}
+
+#menu-patient.light-mode {
+    color: black;
+    background-color: #dcdcdc;
+}
+
+#menu-patient.light-mode:hover {
+    cursor: pointer;
+    color: black;
+    background-color: #28282851;
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    background-color: #2d2f32;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: white 1px solid;
+    z-index: 1;
+    bottom: 100%;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.menu-content .patient {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    color: white;
+    min-width: 200px;
+    padding: 12px 16px;
+    text-decoration: none;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.menu-content div:hover {
+    background-color: #ffffff51;
+}
+
+.menu:hover .menu-content {
+    display: block;
+}
+
+.patient-selected-icon {
+    display: none !important;
+}
+
+.patient-name {
+    font-size: 1.3rem;
+}
+
+.initial-name {
+    display: none;
+    font-weight: bold;
+}
+
+.patient-selected-icon:hover {
+    color: #4CAF50;
+    cursor: pointer;
+}

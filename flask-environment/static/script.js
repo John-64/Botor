@@ -124,6 +124,7 @@ function uploadFile() {
             $('#remove-file').show(); // Mostra l'icona di rimozione del file
             $('#file-icon-upload').show(); // Mostra l'icona di rimozione del file
             $('#file-upload-label').hide(); // Nascondi il pulsante di caricamento
+            $('#menu-patient').hide(); // Nascondi il pulsante di caricamento
         },
         error: function(error) {
             console.error(error); // Gestisci eventuali errori
@@ -143,6 +144,7 @@ $('#remove-file').on('click', function() {
     $('#remove-file').hide(); // Nascondi l'icona di rimozione del file
     $('#file-icon-upload').hide();
     $('#file-upload-label').show(); // Mostra il pulsante di caricamento
+    $('#menu-patient').show();
 });
 
 // Funzione per eliminare i file
@@ -167,7 +169,7 @@ $('#remove-file').on('click', function() {
     deleteFiles(); // Chiamare la funzione deleteFiles quando si fa clic sulla X
 });
 
-// Chi sono
+/*
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('info-tab').addEventListener('click', function () {
         button = document.getElementById('info-tab').className = "active";
@@ -179,3 +181,104 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('info-modal').style.display = 'none';
     }); 
 });
+
+<div id="chatBox">
+    <div class="answer-side">
+        <span class="answer-text">Hi! My name is Botor and i will answer to all your question.</span>
+    </div>
+</div>
+*/
+
+// Funzione per gestire il clic su un paziente
+function selectPatient(patient) {
+    var selectedIconElement = patient.querySelector('.patient-selected-icon');
+    selectedIconElement.style.setProperty('display', 'block', 'important');
+    
+    var initials = patient.dataset.value.split('').filter(char => char.toUpperCase() === char && char !== ' ').join('');
+
+    var chatBox = document.getElementById('chatBox');
+
+    var botMessage = document.createElement('div');
+    botMessage.classList.add('answer-side');
+    var botText = document.createElement('span');
+    botText.classList.add('answer-text');
+    botText.textContent = "Ask me something about " + patient.dataset.value + "!";
+    botMessage.appendChild(botText);
+    chatBox.appendChild(botMessage);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    chatBox.style.overflowY = "auto";
+
+    $('.list-patient').hide();
+    $('.initial-name').text(initials);
+    $('.initial-name').show();
+    $('#upload').hide();
+
+    $.ajax({
+        url: '/selected_patient',
+        type: 'POST',
+        data: { patient_name: patient.dataset.value },
+        success: function(response) {
+            console.log('Paziente selezionato correttamente.');
+        },
+        error: function(error) {
+            console.error('Errore durante l\'invio della selezione:', error);
+        }
+    });
+}
+
+function clearAllX() {
+    var allPatients = document.querySelectorAll('.menu-content .patient');
+    allPatients.forEach(patient => {
+        var selectedIconElement = patient.querySelector('.patient-selected-icon');
+        selectedIconElement.style.display = 'none';
+    });
+    $('.initial-name').hide();
+}
+
+var patients = document.querySelectorAll('#menu-patient .menu-content .patient');
+    patients.forEach(patient => {
+        patient.addEventListener('click', function() {
+            clearAllX();
+            selectPatient(this);
+    });
+});
+
+var closes = document.querySelectorAll('.menu-content .patient .patient-selected-icon');
+closes.forEach(closeIcon => {
+    closeIcon.addEventListener('click', function(event) {
+        event.stopPropagation();
+        
+        $.ajax({
+            url: '/selected_patient',
+            type: 'POST',
+            data: { patient_name: "None"},
+            success: function(response) {
+                console.log('Paziente selezionato correttamente.');
+            },
+            error: function(error) {
+                console.error('Errore durante l\'invio della selezione:', error);
+            }
+        });
+
+        closeIcon.style.display = 'none';
+
+        var chatBox = document.getElementById('chatBox');
+
+        var botMessage = document.createElement('div');
+        botMessage.classList.add('answer-side');
+        var botText = document.createElement('span');
+        botText.classList.add('answer-text');
+        botText.textContent = "User removed.";
+        clearAllX();
+        botMessage.appendChild(botText);
+        chatBox.appendChild(botMessage);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        chatBox.style.overflowY = "auto";
+
+        $('.initial-name').text("");
+        $('.initial-name').hide();
+        $('.list-patient').show();
+        $('#upload').show();
+    });
+});
+

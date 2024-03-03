@@ -37,6 +37,24 @@
                 <span id="file-text" class="dark-mode"></span>
                 <span id="remove-file" class="dark-mode" style="display: none; cursor: pointer;">&#10006;</span>
             </div>
+            <div id="menu-patient" class="menu dark-mode">
+                <span class="material-symbols-outlined list-patient">list</span>
+                <span class="initial-name"></span>
+                <div class="menu-content">
+                    <div class="patient" data-value="Mario Sensato">
+                        <span class="patient-name">Mario Sensato</span>
+                        <span class="material-symbols-outlined patient-selected-icon">close</span>
+                    </div>
+                    <div class="patient" data-value="Giovanni Arterino">
+                        <span class="patient-name">Giovanni Arterino</span>
+                        <span class="material-symbols-outlined patient-selected-icon">close</span>
+                    </div>
+                    <div class="patient" data-value="Antonio Velo">
+                        <span class="patient-name">Antonio Velo</span>
+                        <span class="material-symbols-outlined patient-selected-icon">close</span>
+                    </div>
+                </div>
+              </div>
             <input class="chat-input dark-mode" type="text" id="userInput" name="userInput" value="ciao" placeholder="Insert here your question" onkeypress="handleKeyPress(event)" autocomplete="off" autofocus>
             <button class="button dark-mode" id="button-send" onclick="sendMessage()"><span class="material-symbols-outlined">send</span></button>
         </div>        

@@ -10,9 +10,10 @@ with open("./config.json", "r") as c:
     QDRANT_URL = config["QDRANT_URL"]
     EMBEDDING_NAME = config["EMBEDDING_NAME"]
     COLLECTION_NAME = config["COLLECTION_NAME"]
+    PATH_TO_COLLECTION = config["PATH_TO_COLLECTION"]
 
 
-loader = CSVLoader("./fine-tuning/medquad.csv")
+loader = CSVLoader(PATH_TO_COLLECTION)
 documents = loader.load()
 
 
@@ -29,5 +30,3 @@ qdrant = Qdrant.from_documents(
     prefer_grpc=False,
     collection_name=COLLECTION_NAME
 )
-
-print("Database created!")

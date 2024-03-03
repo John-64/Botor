@@ -1,0 +1,10 @@
+Patient, Date, Age, Heart_Rate (interval 60-100), Glucose (interval 60-110), Cholesterol (interval 100-200), Vitamine D (interval 11 - 100), Insulin (interval 2.6 - 24.9)
+Mario Sensato, 09/05/2022, 19, 88, 103, 205, 13, 21.15
+Mario Sensato, 15/08/2022, 19, 80, 93, 195, 9, 18.21
+Mario Sensato, 20/11/2022, 19, 89, 105, 201, 13, 19.44
+Mario Sensato, 05/03/2023, 20, 86, 96, 193, 16, 16.89
+Mario Sensato, 16/08/2023, 20, 73, 92, 215, 20, 16.58
+Mario Sensato, 28/10/2023, 20, 79, 99, 195, 15, 19.97
+Mario Sensato, 02/12/2023, 20, 74, 102, 190, 16, 12.28
+Mario Sensato, 30/01/2024, 21, 83, 140, 185, 10, 11.55
+Mario Sensato, 21/02/2024, 21, 78, 181, 198, 5, 17.33

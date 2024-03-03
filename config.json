@@ -9,6 +9,7 @@
     "PRESENCE_PENALTY": 0.35,
     "EMBEDDING_NAME": "BAAI/bge-large-en",
     "COLLECTION_NAME": "test_db",
+    "PATH_TO_COLLECTION": "./path/to/file.csv",
     "QDRANT_URL": "http://localhost:6333",
     "PORT": 9000
 }

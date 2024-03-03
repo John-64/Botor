@@ -1,0 +1,11 @@
+Patient, Date, Age, Heart_Rate (interval 60-100), Glucose (interval 60-110), Cholesterol (interval 100-200), Vitamine D (interval 11 - 100), Insulin (interval 2.6 - 24.9)
+Antonio Velo, 09/05/2022, 32, 78, 123, 187, 55, 22.07
+Antonio Velo, 17/07/2022, 32, 88, 140, 194, 72, 21.65
+Antonio Velo, 29/09/2022, 32, 98, 135, 196, 85, 20.61
+Antonio Velo, 05/11/2022, 32, 99, 139, 199, 83, 21.92
+Antonio Velo, 23/12/2022, 32, 100, 143, 200, 80, 21.09
+Antonio Velo, 30/01/2023, 32, 102, 131, 201, 88, 21.73
+Antonio Velo, 21/02/2023, 32, 104, 128, 200, 92, 21.64
+Antonio Velo, 28/03/2023, 33, 98, 120, 198, 87, 22.32
+Antonio Velo, 05/05/2023, 33, 99, 125, 204, 88, 22.12
+Antonio Velo, 23/06/2023, 33, 90, 112, 212, 79, 21.24
