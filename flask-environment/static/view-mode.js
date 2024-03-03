@@ -41,6 +41,8 @@ function toggleMode() {
         document.getElementById('remove-file').classList.remove('light-mode');
         document.getElementById('menu-patient').classList.add('dark-mode');
         document.getElementById('menu-patient').classList.remove('light-mode');
+        document.getElementById('menu-patients').classList.add('dark-mode');
+        document.getElementById('menu-patients').classList.remove('light-mode');
     } else if (body.classList == "light-mode") {
         document.getElementById('dark-mode').style.display = 'block';
         document.getElementById('light-mode').style.display = 'none';
@@ -71,5 +73,7 @@ function toggleMode() {
         document.getElementById('remove-file').classList.add('light-mode');
         document.getElementById('menu-patient').classList.remove('dark-mode');
         document.getElementById('menu-patient').classList.add('light-mode');
+        document.getElementById('menu-patients').classList.remove('dark-mode');
+        document.getElementById('menu-patients').classList.add('light-mode');
     }
 }
