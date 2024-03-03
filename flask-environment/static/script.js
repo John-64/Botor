@@ -202,7 +202,7 @@ function selectPatient(patient) {
     $('.initial-name').text(initials);
     $('.initial-name').show();
     $('#upload').hide();
-
+    
     $.ajax({
         url: '/selected_patient',
         type: 'POST',

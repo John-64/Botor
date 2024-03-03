@@ -29,7 +29,7 @@ with open("./config.json", "r") as c:
 app = flask.Flask(__name__, template_folder='./flask-environment/templates', static_folder='./flask-environment/static')
 os.environ["OPENAI_API_KEY"] = API_KEY
 UPLOAD_PATH = "./data/"
-patient = ""
+patient = "None"
 memory = []
 
 def qdrant_load(collection_name):
@@ -64,7 +64,7 @@ def selected_patient():
     if name_patient != "None":
         patient = name_patient.replace(" ", "")
     else :
-        patient = ""
+        patient = "None"
     return jsonify({'message': 'Paziente selezionato con successo'}), 200
 
 @app.route('/upload', methods=['POST'])
@@ -104,7 +104,7 @@ def process():
         else:   
             client = OpenAI()
 
-            if patient != "":
+            if patient != "None":
                 db_qdrant = qdrant_load(patient)
 
                 docs = db_qdrant.similarity_search_with_score(query=question, k=20)
