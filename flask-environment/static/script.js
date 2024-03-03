@@ -169,25 +169,15 @@ $('#remove-file').on('click', function() {
     deleteFiles(); // Chiamare la funzione deleteFiles quando si fa clic sulla X
 });
 
-/*
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('info-tab').addEventListener('click', function () {
-        button = document.getElementById('info-tab').className = "active";
         document.getElementById('info-modal').style.display = 'block';
     });
     
     document.querySelector('.close').addEventListener('click', function () {
-        document.getElementById('info-tab').className = "";
         document.getElementById('info-modal').style.display = 'none';
     }); 
 });
-
-<div id="chatBox">
-    <div class="answer-side">
-        <span class="answer-text">Hi! My name is Botor and i will answer to all your question.</span>
-    </div>
-</div>
-*/
 
 // Funzione per gestire il clic su un paziente
 function selectPatient(patient) {
@@ -281,4 +271,3 @@ closes.forEach(closeIcon => {
         $('#upload').show();
     });
 });
-

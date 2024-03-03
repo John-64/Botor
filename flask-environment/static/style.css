@@ -21,6 +21,11 @@ body.light-mode {
     background-color: #dcdcdc;
 }
 
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
 #input-container {
     width: 95%;
     display: flex;
@@ -80,16 +85,38 @@ body.light-mode {
     color: black;
 }
 
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(90deg); }
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg) translateY(0); }
+    10%, 90% { transform: rotate(10deg) translateY(-5px); }
+    20%, 80% { transform: rotate(-10deg) translateY(5px); }
+    30%, 50%, 70% { transform: rotate(10deg) translateY(-5px); }
+    40%, 60% { transform: rotate(-10deg) translateY(5px); }
+    100% { transform: rotate(0deg) translateY(0); }
+}
+
+@keyframes zoom {
+    0% { font-size: 1.5rem }
+    25% { font-size: 1.7rem }
+    50% { font-size: 1.9rem }
+    75% { font-size: 2.1rem }
+    100% { font-size: 2.3rem }
+}
+
+#button-send:hover span{
+    animation: shake 1s linear normal;
+}
+
 #button-send.dark-mode:hover {
     background-color: #ffffff51;
 }
 
 #button-send.light-mode:hover {
     background-color: #28282851;
-}
-
-.material-symbols-outlined {
-    display: inline-block;
 }
 
 #chatbot {
@@ -218,6 +245,12 @@ body.light-mode {
     height: 10vh;
 }
 
+.right-side-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 #title {
     display: flex;
     justify-content: flex-start;
@@ -242,12 +275,22 @@ body.light-mode {
     color: dark;
 }
 
+#light-mode, #dark-mode, #info-tab {
+    font-weight: 400;
+}
+
 #change-mode {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 2.5rem;
     padding: 0 1rem;
+    color: white;
+}
+
+.info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     color: white;
 }
 
@@ -259,9 +302,14 @@ body.light-mode {
     color: black;
 }
 
-#change-mode a:hover {
+#change-mode a span, .info {
+    transition: font-size 0.3s ease;
+}
+
+#change-mode a span:hover, .info:hover {
     cursor: pointer;
     color: #4CAF50;
+    font-size: 1.8rem; /* Modifica la dimensione del font su hover */
 }
 
 #upload {
@@ -303,6 +351,23 @@ body.light-mode {
 
 .file-upload-input {
     display: none;
+}
+
+#upload #file-upload-label {
+    transition: transform 0.8s ease;
+    transform: rotate(0deg);
+}
+
+#upload:hover #file-upload-label {
+    transform: rotate(90deg);
+}
+
+#upload:not(:hover) #file-upload-label {
+    transform: rotate(-90deg);
+}
+
+#file-upload-label span, #button-send span, #menu-patient .list-patient{
+    font-weight: 700;
 }
 
 #file-upload-label.dark-mode {
@@ -409,10 +474,12 @@ body.light-mode {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    padding: 1rem;
     flex-direction: column;
     color: white;
     font-size: 1.5rem;
     font-weight: normal;
+    text-align: justify;
 }
 
 .line-green {
