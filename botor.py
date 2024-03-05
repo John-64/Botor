@@ -1,6 +1,6 @@
+from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from llama_index.core import SimpleDirectoryReader, TreeIndex
-from langchain.embeddings import HuggingFaceBgeEmbeddings
-from langchain.vectorstores import Qdrant
+from langchain_community.vectorstores import Qdrant
 from qdrant_client import QdrantClient
 from flask import request, jsonify
 from openai import OpenAI

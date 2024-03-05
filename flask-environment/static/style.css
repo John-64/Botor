@@ -85,11 +85,6 @@ ul {
     color: black;
 }
 
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(90deg); }
-}
-
 @keyframes shake {
     0% { transform: rotate(0deg) translateY(0); }
     10%, 90% { transform: rotate(10deg) translateY(-5px); }
@@ -294,11 +289,11 @@ ul {
     color: white;
 }
 
-#change-mode.dark-mode {
+#change-mode.dark-mode, .info.dark-mode {
     color: white;
 }
 
-#change-mode.light-mode {
+#change-mode.light-mode, .info.light-mode {
     color: black;
 }
 
@@ -378,6 +373,18 @@ ul {
     color: black;
 }
 
+#menu-patient .list-patient {
+    transition: transform 0.8s ease;
+}
+
+#menu-patient:hover .list-patient {
+    transform: rotate(-25deg);
+}
+
+#menu-patient:not(:hover) .list-patient {
+    transform: rotate(0deg);
+}
+
 #file-text {
     white-space: nowrap;
     overflow: hidden;
@@ -448,17 +455,18 @@ ul {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
-    border: 1px solid #4CAF50;
     max-height: 80%;
     overflow-y: auto;
 }
 
 .modal-content.dark-mode {
     background-color: #2d2f32;
+    border: 1px solid white;
 }
 
 .modal-content.light-mode {
-    background-color: #545454;
+    background-color: #dcdcdc;
+    border: 1px solid rgb(0, 0, 0);
 }
 
 .modal-content::-webkit-scrollbar {
@@ -476,11 +484,20 @@ ul {
     align-items: flex-start;
     padding: 1rem;
     flex-direction: column;
-    color: white;
+    margin: 0;
     font-size: 1.5rem;
     font-weight: normal;
     text-align: justify;
 }
+
+.modal-content.dark-mode #info-list, body.dark-mode .title-list-info{
+    color: white;
+}
+
+.modal-content.light-mode #info-list, body.light-mode .title-list-info  {
+    color: black;
+}
+
 
 .line-green {
     width: 100%;
@@ -493,26 +510,32 @@ ul {
     color: #4CAF50;
 }
 
+.title-list-info {
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: underline #4CAF50;
+}
+
 .close {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-    cursor: pointer;
 }
 
-.title-list-info {
-    text-align: center;
-    text-transform: uppercase;
+body.dark-mode .close {
+    color: white;
+}
+
+body.light-mode .close {
+    color: dark;
+}
+
+body.dark-mode .close:hover, body.light-mode .close:hover {
     color: #4CAF50;
-}
-
-.close:hover,
-.close:focus {
-    color: #335634;
     text-decoration: none;
     cursor: pointer;
 }
