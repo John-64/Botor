@@ -1,6 +1,10 @@
 # Botor 🩺
 This repository contains my university project for thesis.
 
+<p align="center"> 
+    <img src="media/BotorMascotte.png" alt="Botor" width="250" height="250">
+</p>
+
 ## Requirements 📝
 - Install [Python](https://www.python.org/);
 - Install [Docker](https://www.docker.com/products/docker-desktop/).
