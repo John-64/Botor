@@ -1,6 +1,6 @@
-from langchain.embeddings import HuggingFaceBgeEmbeddings
-from langchain.document_loaders import CSVLoader
-from langchain.vectorstores import Qdrant
+from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+from langchain_community.document_loaders import CSVLoader
+from langchain_community.vectorstores import Qdrant
 import json
 
 with open("./config.json", "r") as c:
