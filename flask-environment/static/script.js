@@ -5,6 +5,7 @@ function testJSON(text) {
     if (typeof text !== "string") {
         return false;
     }
+    
     try {
         JSON.parse(text);
         return true;
@@ -14,11 +15,8 @@ function testJSON(text) {
 }
 
 function handleKeyPress(event) {
-    // Verifica se il tasto premuto è "Invio" (codice 13)
     if (event.keyCode === 13) {
-        // Impedisce il comportamento predefinito (ad es. il submit del modulo)
         event.preventDefault();
-        // Chiama la funzione sendMessage()
         sendMessage();
     }
 }
@@ -34,9 +32,10 @@ function makeid(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
     let counter = 0;
+
     while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
     }
     return result;
 }
@@ -92,7 +91,7 @@ function generateResponse() {
         data: JSON.stringify({ 'value': input }), 
         success: function(response) {
             button.disabled = false;
-            botText.innerHTML = response.result; // Utilizza response.result anziché response
+            botText.innerHTML = response.result; 
             botMessage.removeChild(loadingContainer);
             botMessage.appendChild(botText);
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -104,69 +103,69 @@ function generateResponse() {
     });
 }
 
-// Funzione per gestire l'invio del file
+
 function uploadFile() {
     var formData = new FormData();
     var file = $('#file-upload')[0].files[0];
     formData.append('file', file);
 
     $.ajax({
-        url: '/upload', // L'URL al quale inviare la richiesta POST
+        url: '/upload', 
         type: 'POST',
         data: formData,
-        processData: false, // Non elaborare i dati
-        contentType: false, // Non impostare l'intestazione Content-Type
+        processData: false, 
+        contentType: false, 
         success: function(response) {
-            console.log(response); // Gestisci la risposta dal server
-            $('#file-text').text(file.name); // Mostra il nome del file caricato
+            console.log(response); 
+            $('#file-text').text(file.name); 
             $('#file-text').attr("title", file.name);
-            $('#file-text').show(); // Mostra l'icona del nome del file
-            $('#remove-file').show(); // Mostra l'icona di rimozione del file
-            $('#file-icon-upload').show(); // Mostra l'icona di rimozione del file
-            $('#file-upload-label').hide(); // Nascondi il pulsante di caricamento
-            $('#menu-patient').hide(); // Nascondi il pulsante di caricamento
+            $('#file-text').show(); 
+            $('#remove-file').show(); 
+            $('#file-icon-upload').show(); 
+            $('#file-upload-label').hide(); 
+            $('#menu-patient').hide(); 
         },
         error: function(error) {
-            console.error(error); // Gestisci eventuali errori
+            console.error(error); 
         }
     });
 }
 
-// Aggiungi un ascoltatore di eventi per l'input file
+
 $('#file-upload').on('change', function() {
     uploadFile();
 });
 
-// Aggiungi un ascoltatore di eventi per l'icona di rimozione del file
+
 $('#remove-file').on('click', function() {
-    $('#file-upload').val(''); // Rimuovi il file selezionato
-    $('#file-text').hide(); // Nascondi l'icona del tipo di file
-    $('#remove-file').hide(); // Nascondi l'icona di rimozione del file
+    $('#file-upload').val(''); 
+    $('#file-text').hide(); 
+    $('#remove-file').hide(); 
     $('#file-icon-upload').hide();
-    $('#file-upload-label').show(); // Mostra il pulsante di caricamento
+    $('#file-upload-label').show(); 
     $('#menu-patient').show();
 });
 
-// Funzione per eliminare i file
+
 function deleteFiles() {
     $.ajax({
-        url: '/delete-files', // L'URL al quale inviare la richiesta POST per eliminare i file
+        url: '/delete-files', 
         type: 'POST',
         success: function(response) {
-            console.log(response); // Gestisci la risposta dal server
-            $('#file-text').hide(); // Nascondi l'icona del nome del file
-            $('#remove-file').hide(); // Nascondi l'icona di rimozione del file
-            $('#file-upload-label').show(); // Mostra il pulsante di caricamento
+            console.log(response); 
+            $('#file-text').hide(); 
+            $('#remove-file').hide(); 
+            $('#file-upload-label').show(); 
         },
         error: function(error) {
-            console.error(error); // Gestisci eventuali errori
+            console.error(error); 
         }
     });
 }
 
-// Aggiungi un ascoltatore di eventi per l'icona di rimozione del file
+
 $('#remove-file').on('click', function() {
-    deleteFiles(); // Chiamare la funzione deleteFiles quando si fa clic sulla X
+    deleteFiles(); 
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -179,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }); 
 });
 
-// Funzione per gestire il clic su un paziente
+
 function selectPatient(patient) {
     var selectedIconElement = patient.querySelector('.patient-selected-icon');
     selectedIconElement.style.setProperty('display', 'block', 'important');
