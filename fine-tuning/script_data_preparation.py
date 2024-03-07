@@ -7,7 +7,7 @@ ds_one_category = dataset.drop_duplicates(subset=['focus_area'])
 
 ds = ds_one_category.drop(columns=['source'])
 
-domanda = "Answer the question that the user provides you and respond in a technical and precise manner to the medical sector"
+domanda = "Answer the question that the user provides you and respond in a technical and precise manner to the medical sector."
 
 ds['system'] = domanda
 
