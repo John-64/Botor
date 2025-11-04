@@ -27,8 +27,9 @@ This repository contains my university thesis project.
     ```bash
     python botor.py
     ```
-    
-If everything is configured correctly, you can use Botor by opening the address displayed in the Port(s) section, for example: http://localhost:9000
+7. If everything is configured correctly, you can use Botor by opening the address displayed in the Port(s) section, for example:
+     ```bash
+     http://localhost:90005
 
 ## Demo 📷
 <p align="center" width="40%">
