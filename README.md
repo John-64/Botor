@@ -31,7 +31,7 @@ This repository contains my university thesis project.
      ```bash
      http://localhost:90005
 
-## Demo 📷
+## Demo
 <p align="center" width="40%">
   <img src="media/Botor.gif" alt="Botor" width="80%">
 </p>
