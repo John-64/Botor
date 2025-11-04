@@ -44,15 +44,12 @@ This repository contains my university thesis project.
 ### Curiosity
 The name "Botor" is a combination of "Bot" with the "Doctor".
 
-## Info
-This project was created for the course "Sicurezza dei Dati" at the Università degli Studi di Salerno.
-
 ## Contribution
 If you'd like to contribute to Bloky, please follow these steps:
-- Fork the repository.
-- Create a new branch (git checkout -b feature/YourFeatureName).
-- Commit your changes (git commit -m 'Add some feature').
-- Push to the branch (git push origin feature/YourFeatureName).
+- Fork the repository;
+- Create a new branch (```git checkout -b feature/YourFeatureName```);
+- Commit your changes (```git commit -m 'Add some feature'```);
+- Push to the branch (```git push origin feature/YourFeatureName```);
 - Open a pull request.
 
 ## License
