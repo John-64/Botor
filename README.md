@@ -1,15 +1,15 @@
-# Botor 🩺
+# Botor
 This repository contains my university project for thesis.
 
 <p align="center"> 
     <img src="media/BotorMascotte.png" alt="Botor" width="250" height="250">
 </p>
 
-## Requirements 📝
+## Requirements
 - Install [Python](https://www.python.org/);
 - Install [Docker](https://www.docker.com/products/docker-desktop/).
 
-## Instruction 📖
+## Instruction
 1. Launch the Docker application and run this two command:
    - docker pull qdrant/qdrant
 3. Download the project and extract it
@@ -26,10 +26,10 @@ If everything is ok you can use the Botor app by reaching the address shown in t
 ## Demo 📷
 ![gif](media/Botor.gif)
 
-### Curiosity 🧐
+### Curiosity
 The name "Botor" is a combination of "Bot" with the "Doctor".
 
-#### Credits 🙏🏻
+#### Credits
 - [OpenAI](https://openai.com/)
 - [Qdrant](https://qdrant.tech/)
 - [Dataset](https://github.com/abachaa/MedQuAD)
